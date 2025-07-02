@@ -49,27 +49,12 @@ class MAIN:
 
         if show_quote:
             quotes = [
-                    (
-                        "The world was never fair to women like me — so I made my own rules.",
-                        "Zara"
-                    ),
-                    (
-                        "Kindness is just a costume. Beneath it, money speaks the loudest.",
-                        "Zara"
-                    ),
-                    (
-                        "I don’t steal. I reclaim a world that once stole everything from me.",
-                        "Zara"
-                    ),
-                    (
-                        "They call me ruthless. But they forget—when a man is ruthless, they call him a leader.",
-                        "Zara"
-                    ),
-                    (
-                        "Everyone has a price. The real question is: who’s smart enough to pay before the collapse begins?",
-                        "Zara"
-                    )
-                ]
+                ("The world was never fair to women like me — so I made my own rules.", "Zara"),
+                ("Kindness is just a costume. Beneath it, money speaks the loudest.", "Zara"),
+                ("I don’t steal. I reclaim a world that once stole everything from me.", "Zara"),
+                ("They call me ruthless. But they forget—when a man is ruthless, they call him a leader.", "Zara"),
+                ("Everyone has a price. The real question is: who’s smart enough to pay before the collapse begins?", "Zara")
+            ]
             quote, by = random.choice(quotes)
             quote_text = f"[white]“{quote}”[/white]\n[yellow]{('- ' + by).rjust(terminal_width)}[/yellow]"
             self.MyRich(quote_text, chos=True)
@@ -91,6 +76,8 @@ class MAIN:
 
     def fetch_firestore(self, cbtindex):
         try:
+            os.system('cls' if os.name == 'nt' else 'clear')  # ✅ Bersihkan layar sebelum tampil data
+
             url = f"https://firestore.googleapis.com/v1/projects/cbt02-890c6/databases/(default)/documents/{cbtindex}"
             res = requests.get(url)
 
@@ -116,7 +103,8 @@ class MAIN:
             self.ut = doc.get('updateTime', '-')
             self.ds_user = cbtindex
 
-            self.Me(show_quote=False)
+            self.Me(show_quote=False)  # ✅ Banner saja tanpa quotes
+
             self.MyRich(f'''[white]
  >> CBTINDEX         : {self.usr}
  >> Nama Sekolah     : {self.nama}
@@ -129,10 +117,12 @@ class MAIN:
  >> User ID          : {self.ds_user}
 ''', None, '[white]> [green]USER DETAILS[/] <')
 
-            self.MyRich(''' [white]01. Crack Soal       03. Crack Jawaban 
- 02. Change CBTINDEX       04. ComingSoon ''', True)
+            self.MyRich(''' [white]
+ 01. Crack Soal       03. Crack Jawaban
+ 02. Change CBTINDEX  04. Coming Soon
+''', True)
 
-            self.menu_opsi()  # Panggil menu interaktif
+            self.menu_opsi()
 
         except Exception as e:
             Console(style="bold red").print(f"[!] Gagal mengambil data: {e}")
